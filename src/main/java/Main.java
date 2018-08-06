@@ -10,7 +10,7 @@ public class Main {
 
         Main obj = new Main();
         obj.pobranieDanych();
-
+        System.out.println("Ta reka warta jest: "+obj.obliczWartoscReki());
 
 
     }
