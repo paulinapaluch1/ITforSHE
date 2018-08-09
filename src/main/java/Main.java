@@ -28,6 +28,7 @@ public class Main {
         obj.pobranieDanych();
         System.out.println("Ta reka warta jest: " + obj.obliczWartoscReki());
         obj.pobierzWynikiPartii();
+
     }
 
     private void pobranieDanych() {
@@ -110,13 +111,12 @@ public class Main {
 
         System.out.println("Czy byla kontra? t-tak, n-nie");
         kontra = s.next().charAt(0);
-        if ((kontra == 't') || (kontra == 'n')) {
-            if (kontra == 't') {
-                System.out.println("Czy byla rekontra? t-tak, n-nie");
-                rekontra = s.next().charAt(0);
-                if ((rekontra != 't') && (rekontra != 'n')) throw new RuntimeException("Podano niepoprawna litere");
-            }
-            } else throw new RuntimeException("Podano niepoprawna litere");
+
+        if (kontra == 't') {
+            System.out.println("Czy byla rekontra? t-tak, n-nie");
+            rekontra = s.next().charAt(0);
+            if ((rekontra != 't') && (rekontra != 'n')) throw new RuntimeException("Podano niepoprawna litere");
+        } else if (kontra != 'n') throw new RuntimeException("Podano niepoprawna litere");
 
 
     }
