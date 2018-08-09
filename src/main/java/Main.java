@@ -3,8 +3,9 @@ import java.util.Scanner;
 public class Main {
     private int tab2[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260}, {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
             {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350}, {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
-    private int wartoscReki, iloscWylicytowanychLew, iloscWpadek, iloscNadrobek;
+    private int wartoscReki, iloscWylicytowanychLew, iloscWpadek, iloscNadrobek = 0;
     private String etap;
+    private Kolor kolor;
     private static final int MIN_WARTOSC_REKI = 21;
     private static final int PRZELOMOWA_WARTOSC_REKI = 36;
     private static final int MIN_ILOSC_LEW = 1;
@@ -18,19 +19,14 @@ public class Main {
             {7, 350, 1700, 3400, 1440, 1630, 1960, 1510, 1770, 2240, 1520, 1790, 2280},
             {0, 0, 0, 0, 20, 100, 200, 30, 100, 200, 30, 100, 200}};
 
-    private char kontra, rekontra;
+    private char kontra, rekontra = 'n';
 
-    public enum Kolor {
-        TREFL, KARO, KIER, PIK
-    }
-
-    Kolor kolor;
 
     public static void main(String[] args) {
 
         Main obj = new Main();
-        // obj.pobranieDanych();
-        // System.out.println("Ta reka warta jest: " + obj.obliczWartoscReki());
+        obj.pobranieDanych();
+        System.out.println("Ta reka warta jest: " + obj.obliczWartoscReki());
         obj.pobierzWynikiPartii();
     }
 
@@ -97,8 +93,12 @@ public class Main {
             case "pik":
                 kolor = Kolor.PIK;
                 break;
+            case "ba":
+                kolor = Kolor.BA;
+                break;
             default:
-                System.out.println("Bledne dane");
+                throw new RuntimeException("Niepoprawny kolor!");
+
         }
 
         System.out.println("Ilosc wpadek: ");
@@ -106,16 +106,26 @@ public class Main {
         if (iloscWpadek == 0) {
             System.out.println("Ilosc nadrobek:");
             iloscNadrobek = s.nextInt();
-
-        } else iloscNadrobek = 0;
+        }
 
 
         System.out.println("Czy byla kontra? t-tak, n-nie");
         kontra = s.next().charAt(0);
+
         if (kontra == 't') {
-            System.out.println("Czy byla rekntra? t-tak, n-nie");
+            System.out.println("Czy byla rekontra? t-tak, n-nie");
             rekontra = s.next().charAt(0);
-        } else rekontra = 'n';
+        }
+        if ((kontra != 't' && kontra != 'n') || (rekontra != 't' && rekontra != 'n')) {
+            System.out.println("Wpisz poprawna litere t lub n! Czy byla kontra? t-tak, n-nie");
+            kontra = s.next().charAt(0);
+            if (kontra == 't') {
+                System.out.println("Czy byla rekontra? t-tak, n-nie");
+                rekontra = s.next().charAt(0);
+            } else rekontra = 'n';
+
+
+        }
 
 
     }
