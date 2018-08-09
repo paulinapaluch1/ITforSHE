@@ -71,9 +71,8 @@ public class Main {
         Scanner s = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
         iloscWylicytowanychLew = s.nextInt();
-        while ((iloscWylicytowanychLew < MIN_ILOSC_LEW) || (iloscWylicytowanychLew > MAX_ILOSC_LEW)) {
-            System.out.println("Ilosc wylicytowanych lew nalezy do przedzialu 1-7! ");
-            iloscWylicytowanychLew = s.nextInt();
+        if ((iloscWylicytowanychLew < MIN_ILOSC_LEW) || (iloscWylicytowanychLew > MAX_ILOSC_LEW)) {
+            throw new RuntimeException("Podano niepoprawna ilosc wylicytowanych lew");
         }
 
         System.out.println("Podaj kolor: ");
@@ -111,23 +110,18 @@ public class Main {
 
         System.out.println("Czy byla kontra? t-tak, n-nie");
         kontra = s.next().charAt(0);
-
-        if (kontra == 't') {
-            System.out.println("Czy byla rekontra? t-tak, n-nie");
-            rekontra = s.next().charAt(0);
-        }
-        if ((kontra != 't' && kontra != 'n') || (rekontra != 't' && rekontra != 'n')) {
-            System.out.println("Wpisz poprawna litere t lub n! Czy byla kontra? t-tak, n-nie");
-            kontra = s.next().charAt(0);
+        if ((kontra == 't') || (kontra == 'n')) {
             if (kontra == 't') {
                 System.out.println("Czy byla rekontra? t-tak, n-nie");
                 rekontra = s.next().charAt(0);
-            } else rekontra = 'n';
-
-
-        }
+                if ((rekontra != 't') && (rekontra != 'n')) throw new RuntimeException("Podano niepoprawna litere");
+            }
+            } else throw new RuntimeException("Podano niepoprawna litere");
 
 
     }
 
+
 }
+
+
