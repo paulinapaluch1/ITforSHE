@@ -19,6 +19,18 @@ public class Main {
             {7, 350, 1700, 3400, 1440, 1630, 1960, 1510, 1770, 2240, 1520, 1790, 2280},
             {0, 0, 0, 0, 20, 100, 200, 30, 100, 200, 30, 100, 200}};
 
+    private int tab4[][] = {{1, 100, 200, 400, 70, 140, 230, 80, 160, 720, 90, 180, 760},
+            {2, 200, 500, 1000, 90, 180, 760, 110, 670, 840, 120, 690, 880},
+            {3, 300, 800, 1600, 110, 670, 840, 140, 730, 960, 600, 750, 1000},
+            {4, 400, 1100, 2200, 130, 710, 920, 620, 790, 1080, 630, 810, 1120},
+            {5, 600, 1400, 2800, 600, 750, 1000, 650, 850, 1200, 660, 870, 1240},
+            {6, 600, 1700, 3400, 1370, 1510, 1830, 1430, 1660, 2070, 1440, 1680, 2110},
+            {7, 700, 2000, 4000, 2140, 2330, 2660, 2210, 2470, 2290, 2200, 2490, 2980},
+            {0, 0, 0, 0, 20, 100, 200, 30, 400, 400, 30, 200, 400}
+
+    };
+
+
     private char kontra, rekontra = 'n';
 
 
@@ -28,6 +40,7 @@ public class Main {
         obj.pobranieDanych();
         System.out.println("Ta reka warta jest: " + obj.obliczWartoscReki());
         obj.pobierzWynikiPartii();
+        System.out.println("Ilosc zdobytych punktow: " + obj.obliczIloscZdobytychPunktow());
 
     }
 
@@ -119,6 +132,31 @@ public class Main {
         } else if (kontra != 'n') throw new RuntimeException("Podano niepoprawna litere");
 
 
+    }
+
+    private int obliczIloscZdobytychPunktow() {
+        int tab[][] = tab3;
+        int kolumnaStartowa, rob = 0, wiersz = iloscWylicytowanychLew - 1;
+        int suma = 0;
+
+        if (etap.toLowerCase().equals("po")) tab = tab4;
+
+        if (kolor == Kolor.TREFL || kolor == Kolor.KARO) kolumnaStartowa = 4;
+        else if (kolor == Kolor.KIER || kolor == Kolor.PIK) kolumnaStartowa = 7;
+        else kolumnaStartowa = 10;
+
+        if (kontra == 't') {
+            if (rekontra == 't') rob = 2;
+            else rob = 1;
+        }
+        suma += tab[wiersz][kolumnaStartowa + rob];
+        if (iloscWpadek > 0) suma -= iloscWpadek * tab[wiersz][rob + 1];
+        else if (iloscWpadek == 0) {
+            if (iloscNadrobek > 0) suma += iloscNadrobek * tab[MAX_ILOSC_LEW][kolumnaStartowa + rob];
+
+        }
+
+        return suma;
     }
 
 
