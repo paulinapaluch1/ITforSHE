@@ -1,15 +1,22 @@
 import java.util.Scanner;
 
 public class Main {
-    private int tab2[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260}, {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
-            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350}, {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
-    private int wartoscReki, iloscWylicytowanychLew, iloscWpadek, iloscNadrobek = 0;
-    private String etap;
-    private Kolor kolor;
     private static final int MIN_WARTOSC_REKI = 21;
     private static final int PRZELOMOWA_WARTOSC_REKI = 36;
     private static final int MIN_ILOSC_LEW = 1;
     private static final int MAX_ILOSC_LEW = 7;
+    private int wartoscReki;
+    private int iloscWylicytowanychLew;
+    private int iloscWpadek;
+    private int iloscNadrobek = 0;
+    private String etap;
+    private Kolor kolor;
+    private char kontra;
+    private char rekontra = 'n';
+
+    private int tab2[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260}, {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
+            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350}, {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
+
     private int tab3[][] = {{1, 50, 100, 200, 70, 140, 230, 80, 160, 520, 90, 180, 560},
             {2, 100, 300, 600, 90, 180, 560, 110, 470, 640, 120, 490, 680},
             {3, 150, 500, 1000, 110, 470, 640, 140, 530, 760, 400, 550, 800},
@@ -29,9 +36,6 @@ public class Main {
             {0, 0, 0, 0, 20, 100, 200, 30, 400, 400, 30, 200, 400}
 
     };
-
-
-    private char kontra, rekontra = 'n';
 
 
     public static void main(String[] args) {
@@ -135,9 +139,11 @@ public class Main {
     }
 
     private int obliczIloscZdobytychPunktow() {
-        int tab[][] = tab3;
-        int kolumnaStartowa, rob = 0, wiersz = iloscWylicytowanychLew - 1;
+        int kolumnaStartowa;
+        int rob = 0;
+        int wiersz = iloscWylicytowanychLew - 1;
         int suma = 0;
+        int tab[][] = tab3;
 
         if (etap.toLowerCase().equals("po")) tab = tab4;
 
@@ -151,7 +157,7 @@ public class Main {
         }
         suma += tab[wiersz][kolumnaStartowa + rob];
         if (iloscWpadek > 0) suma -= iloscWpadek * tab[wiersz][rob + 1];
-        else if (iloscWpadek == 0) {
+        else {
             if (iloscNadrobek > 0) suma += iloscNadrobek * tab[MAX_ILOSC_LEW][kolumnaStartowa + rob];
 
         }
