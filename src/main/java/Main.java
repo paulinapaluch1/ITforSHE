@@ -2,20 +2,22 @@ import java.util.Scanner;
 
 public class Main {
     private static final int MIN_HAND_VALUE = 21;
-    private static final int DISRUPTIVE_HAND_VALUE = 36;
+    private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
     private int handValue;
     private int amountOfBidedTricks;
-    private int amountOfBloomers;
+    private int amountOfBloopers;
     private int amountOfOvertricks = 0;
     private String stageOfTheMatch;
     private Suit suit;
-    private char versus;
-    private char reversus = 'n';
+    private char veto;
+    private char reveto = 'n';
 
-    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260}, {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
-            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350}, {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
+    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260},
+            {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
+            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350},
+            {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
 
     private int tableOfGameValuesBeforeMatch[][] = {{1, 50, 100, 200, 70, 140, 230, 80, 160, 520, 90, 180, 560},
             {2, 100, 300, 600, 90, 180, 560, 110, 470, 640, 120, 490, 680},
@@ -78,7 +80,7 @@ public class Main {
         if (stageOfTheMatch.toLowerCase().equals("przed")) j = 1;
         else j = 2;
 
-        if (handValue <= DISRUPTIVE_HAND_VALUE)
+        if (handValue <= MAX_HAND_SIZE)
             return tableOFPossibleHandValuesBeforeAndAfterMatch[handValue - MIN_HAND_VALUE][j];
         else
             return tableOFPossibleHandValuesBeforeAndAfterMatch[tableOFPossibleHandValuesBeforeAndAfterMatch.length - 1][j];
@@ -88,32 +90,32 @@ public class Main {
 
     private void getMatchResults() {
 
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
-        amountOfBidedTricks = s.nextInt();
-        if ((amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS) || (amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS)) {
+        amountOfBidedTricks = scanner.nextInt();
+        if (amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS || amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS) {
             throw new RuntimeException("Podano niepoprawna ilosc wylicytowanych lew");
         }
 
         System.out.println("Podaj kolor: ");
-        String colour;
-        colour = s.next();
+        String suit;
+        suit = scanner.next();
 
-        switch (colour.toLowerCase()) {
+        switch (suit.toLowerCase()) {
             case "trefl":
-                suit = Suit.TREFL;
+                this.suit = Suit.TREFL;
                 break;
             case "karo":
-                suit = Suit.KARO;
+                this.suit = Suit.KARO;
                 break;
             case "kier":
-                suit = Suit.KIER;
+                this.suit = Suit.KIER;
                 break;
             case "pik":
-                suit = Suit.PIK;
+                this.suit = Suit.PIK;
                 break;
             case "ba":
-                suit = Suit.BA;
+                this.suit = Suit.BA;
                 break;
             default:
                 throw new RuntimeException("Niepoprawny kolor!");
@@ -121,21 +123,23 @@ public class Main {
         }
 
         System.out.println("Ilosc wpadek: ");
-        amountOfBloomers = s.nextInt();
-        if (amountOfBloomers == 0) {
+        amountOfBloopers = scanner.nextInt();
+        if (amountOfBloopers == 0) {
             System.out.println("Ilosc nadrobek:");
-            amountOfOvertricks = s.nextInt();
+            amountOfOvertricks = scanner.nextInt();
         }
 
 
         System.out.println("Czy byla kontra? t-tak, n-nie");
-        versus = s.next().charAt(0);
+        veto = scanner.next().charAt(0);
 
-        if (versus == 't') {
+        if (veto == 't') {
             System.out.println("Czy byla rekontra? t-tak, n-nie");
-            reversus = s.next().charAt(0);
-            if ((reversus != 't') && (reversus != 'n')) throw new RuntimeException("Podano niepoprawna litere");
-        } else if (versus != 'n') throw new RuntimeException("Podano niepoprawna litere");
+            reveto = scanner.next().charAt(0);
+            if ((reveto != 't') && (reveto != 'n'))
+                throw new RuntimeException("Podano niepoprawna litere");
+        } else if (veto != 'n')
+            throw new RuntimeException("Podano niepoprawna litere");
 
 
     }
@@ -153,22 +157,23 @@ public class Main {
         else if (suit == Suit.KIER || suit == Suit.PIK) startingCol = 7;
         else startingCol = 10;
 
-        if (versus == 't') {
-            if (reversus == 't') offset = 2;
+        if (veto == 't') {
+            if (reveto == 't') offset = 2;
             else offset = 1;
         }
         sum += supplementaryTable[row][startingCol + offset];
-        if (amountOfBloomers > 0) sum -= amountOfBloomers * supplementaryTable[row][offset + 1];
-        else {
-            if (amountOfOvertricks > 0)
-                sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
+        if (amountOfBloopers > 0) sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
+        else if (amountOfOvertricks > 0)
+            sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
 
-        }
 
         return sum;
     }
 
 
 }
+
+
+
 
 
