@@ -1,4 +1,4 @@
-public enum Kolor {
+public enum Suit {
         TREFL,
         KARO,
         KIER,
