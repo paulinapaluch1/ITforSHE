@@ -39,6 +39,12 @@ public class Main {
 
     };
 
+    private int tableOfIMP[][] = {{20, 40, 1}, {50, 80, 2}, {90, 120, 3}, {130, 160, 4}, {170, 210, 5},
+            {220, 260, 6}, {270, 310, 7}, {320, 360, 8}, {370, 420, 9}, {430, 490, 10}, {500, 590, 11},
+            {600, 740, 12}, {750, 890, 13}, {900, 1090, 14}, {1100, 1290, 15}, {1300, 1490, 16},
+            {1500, 1740, 17}, {1750, 1990, 18}, {2000, 2240, 19}, {2250, 2490, 20}, {2500, 2990, 21},
+            {3000, 3490, 22}, {3500, 3990, 23}, {4000, 0, 24}};
+
 
     public static void main(String[] args) {
 
@@ -47,7 +53,6 @@ public class Main {
         System.out.println("Ta reka warta jest: " + obj.calculateValueOfHand());
         obj.getMatchResults();
         System.out.println("Ilosc zdobytych punktow: " + obj.calculateMatchScore());
-
     }
 
     private void getHandValueAndStage() {
@@ -77,7 +82,8 @@ public class Main {
     private int calculateValueOfHand() {
 
         int j;
-        if (stageOfTheMatch.toLowerCase().equals("przed")) j = 1;
+        if (stageOfTheMatch.toLowerCase().equals("przed"))
+            j = 1;
         else j = 2;
 
         if (handValue <= MAX_HAND_SIZE)
@@ -93,9 +99,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
         amountOfBidedTricks = scanner.nextInt();
-        if (amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS || amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS) {
+        if (amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS || amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS)
             throw new RuntimeException("Podano niepoprawna ilosc wylicytowanych lew");
-        }
+
 
         System.out.println("Podaj kolor: ");
         String suit;
@@ -151,18 +157,24 @@ public class Main {
         int sum = 0;
         int supplementaryTable[][] = tableOfGameValuesBeforeMatch;
 
-        if (stageOfTheMatch.toLowerCase().equals("po")) supplementaryTable = tableOfGameValuesAfterMatch;
+        if (stageOfTheMatch.toLowerCase().equals("po"))
+            supplementaryTable = tableOfGameValuesAfterMatch;
 
-        if (suit == Suit.TREFL || suit == Suit.KARO) startingCol = 4;
-        else if (suit == Suit.KIER || suit == Suit.PIK) startingCol = 7;
+        if (suit == Suit.TREFL || suit == Suit.KARO)
+            startingCol = 4;
+        else if (suit == Suit.KIER || suit == Suit.PIK)
+            startingCol = 7;
         else startingCol = 10;
 
         if (veto == 't') {
-            if (reveto == 't') offset = 2;
+            if (reveto == 't')
+                offset = 2;
             else offset = 1;
         }
+        
         sum += supplementaryTable[row][startingCol + offset];
-        if (amountOfBloopers > 0) sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
+        if (amountOfBloopers > 0)
+            sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
         else if (amountOfOvertricks > 0)
             sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
 
