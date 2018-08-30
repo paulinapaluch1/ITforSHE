@@ -1,23 +1,25 @@
 import java.util.Scanner;
 
 public class Main {
-    private static final int MIN_WARTOSC_REKI = 21;
-    private static final int PRZELOMOWA_WARTOSC_REKI = 36;
-    private static final int MIN_ILOSC_LEW = 1;
-    private static final int MAX_ILOSC_LEW = 7;
-    private int wartoscReki;
-    private int iloscWylicytowanychLew;
-    private int iloscWpadek;
-    private int iloscNadrobek = 0;
-    private String etap;
-    private Kolor kolor;
-    private char kontra;
-    private char rekontra = 'n';
+    private static final int MIN_HAND_VALUE = 21;
+    private static final int MAX_HAND_SIZE = 36;
+    private static final int MIN_AMOUNT_OF_TRICKS = 1;
+    private static final int MAX_AMOUNT_OF_TRICKS = 7;
+    private int handValue;
+    private int amountOfBidedTricks;
+    private int amountOfBloopers;
+    private int amountOfOvertricks = 0;
+    private String stageOfTheMatch;
+    private Suit suit;
+    private char veto;
+    private char reveto = 'n';
 
-    private int tab2[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260}, {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
-            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350}, {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
+    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][] = {{21, 50, 50}, {22, 90, 90}, {23, 130, 130}, {24, 220, 260},
+            {25, 300, 400}, {26, 400, 600}, {27, 430, 630}, {28, 460, 660},
+            {29, 490, 690}, {30, 520, 720}, {31, 700, 720}, {32, 900, 1350},
+            {33, 990, 1440}, {34, 1250, 1800}, {35, 1400, 2100}, {36, 1500, 2200}};
 
-    private int tab3[][] = {{1, 50, 100, 200, 70, 140, 230, 80, 160, 520, 90, 180, 560},
+    private int tableOfGameValuesBeforeMatch[][] = {{1, 50, 100, 200, 70, 140, 230, 80, 160, 520, 90, 180, 560},
             {2, 100, 300, 600, 90, 180, 560, 110, 470, 640, 120, 490, 680},
             {3, 150, 500, 1000, 110, 470, 640, 140, 530, 760, 400, 550, 800},
             {4, 200, 800, 1600, 130, 510, 720, 420, 590, 880, 430, 610, 920},
@@ -26,7 +28,7 @@ public class Main {
             {7, 350, 1700, 3400, 1440, 1630, 1960, 1510, 1770, 2240, 1520, 1790, 2280},
             {0, 0, 0, 0, 20, 100, 200, 30, 100, 200, 30, 100, 200}};
 
-    private int tab4[][] = {{1, 100, 200, 400, 70, 140, 230, 80, 160, 720, 90, 180, 760},
+    private int tableOfGameValuesAfterMatch[][] = {{1, 100, 200, 400, 70, 140, 230, 80, 160, 720, 90, 180, 760},
             {2, 200, 500, 1000, 90, 180, 760, 110, 670, 840, 120, 690, 880},
             {3, 300, 800, 1600, 110, 670, 840, 140, 730, 960, 600, 750, 1000},
             {4, 400, 1100, 2200, 130, 710, 920, 620, 790, 1080, 630, 810, 1120},
@@ -37,81 +39,89 @@ public class Main {
 
     };
 
+    private int tableOfIMP[][] = {{20, 40, 1}, {50, 80, 2}, {90, 120, 3}, {130, 160, 4}, {170, 210, 5},
+            {220, 260, 6}, {270, 310, 7}, {320, 360, 8}, {370, 420, 9}, {430, 490, 10}, {500, 590, 11},
+            {600, 740, 12}, {750, 890, 13}, {900, 1090, 14}, {1100, 1290, 15}, {1300, 1490, 16},
+            {1500, 1740, 17}, {1750, 1990, 18}, {2000, 2240, 19}, {2250, 2490, 20}, {2500, 2990, 21},
+            {3000, 3490, 22}, {3500, 3990, 23}, {4000, 0, 24}};
+
 
     public static void main(String[] args) {
 
         Main obj = new Main();
-        obj.pobranieDanych();
-        System.out.println("Ta reka warta jest: " + obj.obliczWartoscReki());
-        obj.pobierzWynikiPartii();
-        System.out.println("Ilosc zdobytych punktow: " + obj.obliczIloscZdobytychPunktow());
-
+        obj.getHandValueAndStage();
+        System.out.println("Ta reka warta jest: " + obj.calculateValueOfHand());
+        obj.getMatchResults();
+        System.out.println("Ilosc zdobytych punktow: " + obj.calculateMatchScore());
     }
 
-    private void pobranieDanych() {
+    private void getHandValueAndStage() {
 
         System.out.println("Wartosc punktowa reki: ");
         Scanner input = new Scanner(System.in);
-        wartoscReki = input.nextInt();
+        handValue = input.nextInt();
 
-        while (wartoscReki < MIN_WARTOSC_REKI) {
-            System.out.println("Wartosc nie moze byc mniejsza niz " + MIN_WARTOSC_REKI + "!");
-            wartoscReki = input.nextInt();
+        while (handValue < MIN_HAND_VALUE) {
+            System.out.println("Wartosc nie moze byc mniejsza niz " + MIN_HAND_VALUE + "!");
+            handValue = input.nextInt();
         }
 
 
         System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
-        etap = input.next();
+        stageOfTheMatch = input.next();
 
-        while (!etap.toLowerCase().equals("przed") && !etap.toLowerCase().equals("po")) {
+        while (!stageOfTheMatch.toLowerCase().equals("przed") && !stageOfTheMatch.toLowerCase().equals("po")) {
             System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
-            etap = input.next();
+            stageOfTheMatch = input.next();
         }
 
 
     }
 
 
-    private int obliczWartoscReki() {
+    private int calculateValueOfHand() {
 
         int j;
-        if (etap.toLowerCase().equals("przed")) j = 1;
+        if (stageOfTheMatch.toLowerCase().equals("przed"))
+            j = 1;
         else j = 2;
 
-        if (wartoscReki <= PRZELOMOWA_WARTOSC_REKI) return tab2[wartoscReki - MIN_WARTOSC_REKI][j];
-        else return tab2[tab2.length - 1][j];
+        if (handValue <= MAX_HAND_SIZE)
+            return tableOFPossibleHandValuesBeforeAndAfterMatch[handValue - MIN_HAND_VALUE][j];
+        else
+            return tableOFPossibleHandValuesBeforeAndAfterMatch[tableOFPossibleHandValuesBeforeAndAfterMatch.length - 1][j];
 
     }
 
 
-    private void pobierzWynikiPartii() {
+    private void getMatchResults() {
 
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
-        iloscWylicytowanychLew = s.nextInt();
-        if ((iloscWylicytowanychLew < MIN_ILOSC_LEW) || (iloscWylicytowanychLew > MAX_ILOSC_LEW)) {
+        amountOfBidedTricks = scanner.nextInt();
+        if (amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS || amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS)
             throw new RuntimeException("Podano niepoprawna ilosc wylicytowanych lew");
-        }
+
 
         System.out.println("Podaj kolor: ");
-        String color;
-        color = s.next();
+        String suit;
+        suit = scanner.next();
 
-        switch (color.toLowerCase()) {
+        switch (suit.toLowerCase()) {
             case "trefl":
-                kolor = Kolor.TREFL;
+                this.suit = Suit.TREFL;
                 break;
             case "karo":
-                kolor = Kolor.KARO;
+                this.suit = Suit.KARO;
                 break;
             case "kier":
-                kolor = Kolor.KIER;
+                this.suit = Suit.KIER;
                 break;
             case "pik":
-                kolor = Kolor.PIK;
+                this.suit = Suit.PIK;
                 break;
             case "ba":
-                kolor = Kolor.BA;
+                this.suit = Suit.BA;
                 break;
             default:
                 throw new RuntimeException("Niepoprawny kolor!");
@@ -119,53 +129,63 @@ public class Main {
         }
 
         System.out.println("Ilosc wpadek: ");
-        iloscWpadek = s.nextInt();
-        if (iloscWpadek == 0) {
+        amountOfBloopers = scanner.nextInt();
+        if (amountOfBloopers == 0) {
             System.out.println("Ilosc nadrobek:");
-            iloscNadrobek = s.nextInt();
+            amountOfOvertricks = scanner.nextInt();
         }
 
 
         System.out.println("Czy byla kontra? t-tak, n-nie");
-        kontra = s.next().charAt(0);
+        veto = scanner.next().charAt(0);
 
-        if (kontra == 't') {
+        if (veto == 't') {
             System.out.println("Czy byla rekontra? t-tak, n-nie");
-            rekontra = s.next().charAt(0);
-            if ((rekontra != 't') && (rekontra != 'n')) throw new RuntimeException("Podano niepoprawna litere");
-        } else if (kontra != 'n') throw new RuntimeException("Podano niepoprawna litere");
+            reveto = scanner.next().charAt(0);
+            if ((reveto != 't') && (reveto != 'n'))
+                throw new RuntimeException("Podano niepoprawna litere");
+        } else if (veto != 'n')
+            throw new RuntimeException("Podano niepoprawna litere");
 
 
     }
 
-    private int obliczIloscZdobytychPunktow() {
-        int kolumnaStartowa;
-        int rob = 0;
-        int wiersz = iloscWylicytowanychLew - 1;
-        int suma = 0;
-        int tab[][] = tab3;
+    private int calculateMatchScore() {
+        int startingCol;
+        int offset = 0;
+        int row = amountOfBidedTricks - 1;
+        int sum = 0;
+        int supplementaryTable[][] = tableOfGameValuesBeforeMatch;
 
-        if (etap.toLowerCase().equals("po")) tab = tab4;
+        if (stageOfTheMatch.toLowerCase().equals("po"))
+            supplementaryTable = tableOfGameValuesAfterMatch;
 
-        if (kolor == Kolor.TREFL || kolor == Kolor.KARO) kolumnaStartowa = 4;
-        else if (kolor == Kolor.KIER || kolor == Kolor.PIK) kolumnaStartowa = 7;
-        else kolumnaStartowa = 10;
+        if (suit == Suit.TREFL || suit == Suit.KARO)
+            startingCol = 4;
+        else if (suit == Suit.KIER || suit == Suit.PIK)
+            startingCol = 7;
+        else startingCol = 10;
 
-        if (kontra == 't') {
-            if (rekontra == 't') rob = 2;
-            else rob = 1;
+        if (veto == 't') {
+            if (reveto == 't')
+                offset = 2;
+            else offset = 1;
         }
-        suma += tab[wiersz][kolumnaStartowa + rob];
-        if (iloscWpadek > 0) suma -= iloscWpadek * tab[wiersz][rob + 1];
-        else {
-            if (iloscNadrobek > 0) suma += iloscNadrobek * tab[MAX_ILOSC_LEW][kolumnaStartowa + rob];
+        
+        sum += supplementaryTable[row][startingCol + offset];
+        if (amountOfBloopers > 0)
+            sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
+        else if (amountOfOvertricks > 0)
+            sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
 
-        }
 
-        return suma;
+        return sum;
     }
 
 
 }
+
+
+
 
 
