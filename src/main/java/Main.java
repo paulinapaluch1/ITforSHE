@@ -5,10 +5,14 @@ public class Main {
     private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
+    private static final int COL_WITH_IMP_RESULT = 2;
+    private static final int MIN_MARGIN_WITH_POINTS = 20;
+    private static final int LAST_ROW_IN_IMP_TABLE = 23;
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
     private int amountOfOvertricks = 0;
+    private int margin;
     private String stageOfTheMatch;
     private Suit suit;
     private char veto;
@@ -53,6 +57,9 @@ public class Main {
         System.out.println("Ta reka warta jest: " + obj.calculateValueOfHand());
         obj.getMatchResults();
         System.out.println("Ilosc zdobytych punktow: " + obj.calculateMatchScore());
+        System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + obj.getResultInInternationalMatchPoints());
+
+
     }
 
     private void getHandValueAndStage() {
@@ -171,7 +178,7 @@ public class Main {
                 offset = 2;
             else offset = 1;
         }
-        
+
         sum += supplementaryTable[row][startingCol + offset];
         if (amountOfBloopers > 0)
             sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
@@ -180,6 +187,26 @@ public class Main {
 
 
         return sum;
+    }
+
+    private int getResultInInternationalMatchPoints() {
+        margin = calculateMatchScore() - calculateValueOfHand();
+        int i = 0;
+        int j = 0;
+        int scoreIMP = 0;
+        if (margin < MIN_MARGIN_WITH_POINTS) scoreIMP = 0;
+        else if (margin > tableOfIMP[LAST_ROW_IN_IMP_TABLE][j])
+            scoreIMP = tableOfIMP[LAST_ROW_IN_IMP_TABLE][COL_WITH_IMP_RESULT];
+        else
+
+            while (i <= LAST_ROW_IN_IMP_TABLE) {
+                if (margin > tableOfIMP[i][j] && margin < tableOfIMP[i][j + 1]) {
+                    scoreIMP = tableOfIMP[i][COL_WITH_IMP_RESULT];
+                    break;
+                } else i++;
+            }
+
+        return scoreIMP;
     }
 
 
