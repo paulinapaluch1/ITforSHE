@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +8,6 @@ public class Main {
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
     private static final int COL_WITH_IMP_RESULT = 2;
-    private static final int MIN_MARGIN_WITH_POINTS = 20;
     private static final int LAST_ROW_IN_IMP_TABLE = 23;
     private int handValue;
     private int amountOfBidedTricks;
@@ -51,13 +52,18 @@ public class Main {
 
 
     public static void main(String[] args) {
-
+        int valueOfHand;
+        int matchScore;
+        int scoreIMP;
         Main obj = new Main();
         obj.getHandValueAndStage();
-        System.out.println("Ta reka warta jest: " + obj.calculateValueOfHand());
+        valueOfHand = obj.calculateValueOfHand();
+        System.out.println("Ta reka warta jest: " + valueOfHand);
         obj.getMatchResults();
-        System.out.println("Ilosc zdobytych punktow: " + obj.calculateMatchScore());
-        System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + obj.getResultInInternationalMatchPoints());
+        matchScore = obj.calculateMatchScore();
+        System.out.println("Ilosc zdobytych punktow: " + matchScore);
+        scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
+        System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
 
 
     }
@@ -189,21 +195,28 @@ public class Main {
         return sum;
     }
 
-    private int getResultInInternationalMatchPoints() {
-        margin = calculateMatchScore() - calculateValueOfHand();
-        int i = 0;
-        int j = 0;
+    private int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
+        margin = matchScore - valueOfHand;
+        List<RangeOfIMP> listOfRanges = new ArrayList<>();
         int scoreIMP = 0;
-        if (margin < MIN_MARGIN_WITH_POINTS) scoreIMP = 0;
-        else if (margin > tableOfIMP[LAST_ROW_IN_IMP_TABLE][j])
-            scoreIMP = tableOfIMP[LAST_ROW_IN_IMP_TABLE][COL_WITH_IMP_RESULT];
+
+        for (int i = 0; i <= LAST_ROW_IN_IMP_TABLE; i++) {
+            RangeOfIMP range = new RangeOfIMP(tableOfIMP[i][COL_WITH_IMP_RESULT - 2], tableOfIMP[i][COL_WITH_IMP_RESULT - 1], tableOfIMP[i][COL_WITH_IMP_RESULT]);
+            listOfRanges.add(range);
+        }
+
+        if (margin < (listOfRanges.get(0).highestValue - listOfRanges.get(0).lowestValue))
+            scoreIMP = 0;
+        else if (margin > listOfRanges.get(listOfRanges.size() - 1).lowestValue)
+            scoreIMP = listOfRanges.get(listOfRanges.size() - 1).points;
         else
 
-            while (i <= LAST_ROW_IN_IMP_TABLE) {
-                if (margin > tableOfIMP[i][j] && margin < tableOfIMP[i][j + 1]) {
-                    scoreIMP = tableOfIMP[i][COL_WITH_IMP_RESULT];
+            for (RangeOfIMP range : listOfRanges) {
+                if (range.checkIfRangeIsRight(margin) != -1) {
+                    scoreIMP = range.checkIfRangeIsRight(margin);
                     break;
-                } else i++;
+                }
+
             }
 
         return scoreIMP;
