@@ -77,7 +77,7 @@ public class Main {
         handValue = input.nextInt();
 
         if (handValue < MIN_HAND_VALUE)
-            throw new RuntimeException("Podano nieporawna wartosc reki");
+            throw new IncorrectHandValueException();
 
 
 
