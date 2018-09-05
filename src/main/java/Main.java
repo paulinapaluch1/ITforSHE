@@ -76,19 +76,17 @@ public class Main {
         Scanner input = new Scanner(System.in);
         handValue = input.nextInt();
 
-        while (handValue < MIN_HAND_VALUE) {
-            System.out.println("Wartosc nie moze byc mniejsza niz " + MIN_HAND_VALUE + "!");
-            handValue = input.nextInt();
-        }
+        if (handValue < MIN_HAND_VALUE)
+            throw new RuntimeException("Podano nieporawna wartosc reki");
+
 
 
         System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
         stageOfTheMatch = input.next();
 
-        while (!stageOfTheMatch.toLowerCase().equals("przed") && !stageOfTheMatch.toLowerCase().equals("po")) {
-            System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
-            stageOfTheMatch = input.next();
-        }
+        if (!stageOfTheMatch.toLowerCase().equals("przed") && !stageOfTheMatch.toLowerCase().equals("po"))
+            throw new RuntimeException("Podano niepoprawny etap partii");
+
 
 
     }
