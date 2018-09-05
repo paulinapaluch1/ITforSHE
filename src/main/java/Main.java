@@ -9,6 +9,8 @@ public class Main {
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
     private static final int COL_WITH_IMP_RESULT = 2;
     private static final int LAST_ROW_IN_IMP_TABLE = 23;
+    private static final int MINIMAL_RANGE_OFFSET = 1;
+    private static final int MAXIMUM_RANGE_OFFSET = 2;
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
@@ -48,7 +50,7 @@ public class Main {
             {220, 260, 6}, {270, 310, 7}, {320, 360, 8}, {370, 420, 9}, {430, 490, 10}, {500, 590, 11},
             {600, 740, 12}, {750, 890, 13}, {900, 1090, 14}, {1100, 1290, 15}, {1300, 1490, 16},
             {1500, 1740, 17}, {1750, 1990, 18}, {2000, 2240, 19}, {2250, 2490, 20}, {2500, 2990, 21},
-            {3000, 3490, 22}, {3500, 3990, 23}, {4000, 0, 24}};
+            {3000, 3490, 22}, {3500, 3990, 23}, {0, 4000, 24}};
 
 
     public static void main(String[] args) {
@@ -201,13 +203,13 @@ public class Main {
         int scoreIMP = 0;
 
         for (int i = 0; i <= LAST_ROW_IN_IMP_TABLE; i++) {
-            RangeOfIMP range = new RangeOfIMP(tableOfIMP[i][COL_WITH_IMP_RESULT - 2], tableOfIMP[i][COL_WITH_IMP_RESULT - 1], tableOfIMP[i][COL_WITH_IMP_RESULT]);
+            RangeOfIMP range = new RangeOfIMP(tableOfIMP[i][COL_WITH_IMP_RESULT - MAXIMUM_RANGE_OFFSET], tableOfIMP[i][COL_WITH_IMP_RESULT - MINIMAL_RANGE_OFFSET], tableOfIMP[i][COL_WITH_IMP_RESULT]);
             listOfRanges.add(range);
         }
 
-        if (margin < (listOfRanges.get(0).highestValue - listOfRanges.get(0).lowestValue))
+        if (margin < (listOfRanges.get(0).lowestValue))
             scoreIMP = 0;
-        else if (margin > listOfRanges.get(listOfRanges.size() - 1).lowestValue)
+        else if (margin > listOfRanges.get(listOfRanges.size() - 1).highestValue)
             scoreIMP = listOfRanges.get(listOfRanges.size() - 1).points;
         else
 
