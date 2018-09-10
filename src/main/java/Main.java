@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -5,10 +7,15 @@ public class Main {
     private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
+    private static final int COL_WITH_IMP_RESULT = 2;
+    private static final int LAST_ROW_IN_IMP_TABLE = 23;
+    private static final int MINIMAL_RANGE_OFFSET = 1;
+    private static final int MAXIMUM_RANGE_OFFSET = 2;
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
     private int amountOfOvertricks = 0;
+    private int margin;
     private String stageOfTheMatch;
     private Suit suit;
     private char veto;
@@ -43,16 +50,24 @@ public class Main {
             {220, 260, 6}, {270, 310, 7}, {320, 360, 8}, {370, 420, 9}, {430, 490, 10}, {500, 590, 11},
             {600, 740, 12}, {750, 890, 13}, {900, 1090, 14}, {1100, 1290, 15}, {1300, 1490, 16},
             {1500, 1740, 17}, {1750, 1990, 18}, {2000, 2240, 19}, {2250, 2490, 20}, {2500, 2990, 21},
-            {3000, 3490, 22}, {3500, 3990, 23}, {4000, 0, 24}};
+            {3000, 3490, 22}, {3500, 3990, 23}, {0, 4000, 24}};
 
 
     public static void main(String[] args) {
-
+        int valueOfHand;
+        int matchScore;
+        int scoreIMP;
         Main obj = new Main();
         obj.getHandValueAndStage();
-        System.out.println("Ta reka warta jest: " + obj.calculateValueOfHand());
+        valueOfHand = obj.calculateValueOfHand();
+        System.out.println("Ta reka warta jest: " + valueOfHand);
         obj.getMatchResults();
-        System.out.println("Ilosc zdobytych punktow: " + obj.calculateMatchScore());
+        matchScore = obj.calculateMatchScore();
+        System.out.println("Ilosc zdobytych punktow: " + matchScore);
+        scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
+        System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
+
+
     }
 
     private void getHandValueAndStage() {
@@ -171,7 +186,7 @@ public class Main {
                 offset = 2;
             else offset = 1;
         }
-        
+
         sum += supplementaryTable[row][startingCol + offset];
         if (amountOfBloopers > 0)
             sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
@@ -180,6 +195,33 @@ public class Main {
 
 
         return sum;
+    }
+
+    private int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
+        margin = matchScore - valueOfHand;
+        List<RangeOfIMP> listOfRanges = new ArrayList<>();
+        int scoreIMP = 0;
+
+        for (int i = 0; i <= LAST_ROW_IN_IMP_TABLE; i++) {
+            RangeOfIMP range = new RangeOfIMP(tableOfIMP[i][COL_WITH_IMP_RESULT - MAXIMUM_RANGE_OFFSET], tableOfIMP[i][COL_WITH_IMP_RESULT - MINIMAL_RANGE_OFFSET], tableOfIMP[i][COL_WITH_IMP_RESULT]);
+            listOfRanges.add(range);
+        }
+
+        if (margin < (listOfRanges.get(0).lowestValue))
+            scoreIMP = 0;
+        else if (margin > listOfRanges.get(listOfRanges.size() - 1).highestValue)
+            scoreIMP = listOfRanges.get(listOfRanges.size() - 1).points;
+        else
+
+            for (RangeOfIMP range : listOfRanges) {
+                if (range.checkIfRangeIsRight(margin) != -1) {
+                    scoreIMP = range.checkIfRangeIsRight(margin);
+                    break;
+                }
+
+            }
+
+        return scoreIMP;
     }
 
 
