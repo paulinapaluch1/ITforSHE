@@ -67,18 +67,10 @@ public class Main {
             System.out.println("Ilosc zdobytych punktow: " + matchScore);
             scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
             System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
-        } catch (IncorrectHandValueException e) {
-            e.printStackTrace();
-        } catch (WrongStageOfTheMatchException e) {
-            e.printStackTrace();
-        } catch (InvalidAmountOfTricksException e) {
-            e.printStackTrace();
-        } catch (WrongSuitException e) {
-            e.printStackTrace();
-        } catch (ImproperCharacterException e) {
-            e.printStackTrace();
+        } catch (IncorrectHandValueException | WrongStageOfTheMatchException | WrongSuitException
+                | InvalidAmountOfTricksException | ImproperCharacterException e) {
+            System.err.println(e.getMessage());
         }
-
 
     }
 
