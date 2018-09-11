@@ -1,7 +1,7 @@
 public class IncorrectHandValueException extends RuntimeException {
 
 
-    public IncorrectHandValueException(){
+    public IncorrectHandValueException() {
         super("Podano niepoprawną wartosc reki");
 
     }
