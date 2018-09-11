@@ -58,15 +58,19 @@ public class Main {
         int matchScore;
         int scoreIMP;
         Main obj = new Main();
-        obj.getHandValueAndStage();
-        valueOfHand = obj.calculateValueOfHand();
-        System.out.println("Ta reka warta jest: " + valueOfHand);
-        obj.getMatchResults();
-        matchScore = obj.calculateMatchScore();
-        System.out.println("Ilosc zdobytych punktow: " + matchScore);
-        scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
-        System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
-
+        try {
+            obj.getHandValueAndStage();
+            valueOfHand = obj.calculateValueOfHand();
+            System.out.println("Ta reka warta jest: " + valueOfHand);
+            obj.getMatchResults();
+            matchScore = obj.calculateMatchScore();
+            System.out.println("Ilosc zdobytych punktow: " + matchScore);
+            scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
+            System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
+        } catch (IncorrectHandValueException | WrongStageOfTheMatchException | WrongSuitException
+                | InvalidAmountOfTricksException | ImproperCharacterException e) {
+            System.err.println(e.getMessage());
+        }
 
     }
 
@@ -76,19 +80,14 @@ public class Main {
         Scanner input = new Scanner(System.in);
         handValue = input.nextInt();
 
-        while (handValue < MIN_HAND_VALUE) {
-            System.out.println("Wartosc nie moze byc mniejsza niz " + MIN_HAND_VALUE + "!");
-            handValue = input.nextInt();
-        }
-
+        if (handValue < MIN_HAND_VALUE)
+            throw new IncorrectHandValueException();
 
         System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
         stageOfTheMatch = input.next();
 
-        while (!stageOfTheMatch.toLowerCase().equals("przed") && !stageOfTheMatch.toLowerCase().equals("po")) {
-            System.out.println("Przed partią - wpisz 'przed', Po partii - wpisz 'po'");
-            stageOfTheMatch = input.next();
-        }
+        if (!stageOfTheMatch.toLowerCase().equals("przed") && !stageOfTheMatch.toLowerCase().equals("po"))
+            throw new WrongStageOfTheMatchException();
 
 
     }
@@ -115,7 +114,7 @@ public class Main {
         System.out.println("Ilosc wylicytowanych lew: ");
         amountOfBidedTricks = scanner.nextInt();
         if (amountOfBidedTricks < MIN_AMOUNT_OF_TRICKS || amountOfBidedTricks > MAX_AMOUNT_OF_TRICKS)
-            throw new RuntimeException("Podano niepoprawna ilosc wylicytowanych lew");
+            throw new InvalidAmountOfTricksException();
 
 
         System.out.println("Podaj kolor: ");
@@ -139,7 +138,7 @@ public class Main {
                 this.suit = Suit.BA;
                 break;
             default:
-                throw new RuntimeException("Niepoprawny kolor!");
+                throw new WrongSuitException();
 
         }
 
@@ -158,9 +157,9 @@ public class Main {
             System.out.println("Czy byla rekontra? t-tak, n-nie");
             reveto = scanner.next().charAt(0);
             if ((reveto != 't') && (reveto != 'n'))
-                throw new RuntimeException("Podano niepoprawna litere");
+                throw new ImproperCharacterException();
         } else if (veto != 'n')
-            throw new RuntimeException("Podano niepoprawna litere");
+            throw new ImproperCharacterException();
 
 
     }
