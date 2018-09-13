@@ -14,7 +14,12 @@ public class Main {
     private static final int LAST_ROW_IN_IMP_TABLE = 23;
     private static final int MINIMAL_RANGE_OFFSET = 1;
     private static final int MAXIMUM_RANGE_OFFSET = 2;
-
+    private static final int ROWS_IN_IMP_TABLE = 24;
+    private static final int COLS_IN_INP_TABLE = 3;
+    private static final int ROWS_IN_HAND_VALUES_TABLE = 16;
+    private static final int COLS_IN_HAND_VALUE_TABLE = 3;
+    private static final int ROWS_IN_GAMES_TABLES = 8;
+    private static final int COLS_IN_GAMES_TABLES = 13;
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
@@ -24,15 +29,23 @@ public class Main {
     private Suit suit;
     private char veto;
     private char reveto = 'n';
-   
-
+    TableReader reader;
+    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
+    private int tableOfGameValuesBeforeMatch[][];
+    private int tableOfGameValuesAfterMatch[][];
+    private int tableOfIMP[][];
 
     public static void main(String[] args) {
         int valueOfHand;
         int matchScore;
         int scoreIMP;
         Main obj = new Main();
-         try {
+        obj.reader = new TableReader();
+        obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile("src/main/files/HandValues.csv", ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
+        obj.tableOfIMP = obj.reader.readTableFromFile("src/main/files/IMPValues.csv", ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
+        obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile("src/main/files/GameValuesBeforeMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile("src/main/files/GameValuesAfterMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        try {
             obj.getHandValueAndStage();
             valueOfHand = obj.calculateValueOfHand();
             System.out.println("Ta reka warta jest: " + valueOfHand);
