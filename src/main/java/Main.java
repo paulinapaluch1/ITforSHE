@@ -41,10 +41,10 @@ public class Main {
         int scoreIMP;
         Main obj = new Main();
         obj.reader = new TableReader();
-        obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile("src/main/files/HandValues.csv", ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
-        obj.tableOfIMP = obj.reader.readTableFromFile("src/main/files/IMPValues.csv", ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
-        obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile("src/main/files/GameValuesBeforeMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
-        obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile("src/main/files/GameValuesAfterMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile("src/main/resources/HandValues.csv", ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
+        obj.tableOfIMP = obj.reader.readTableFromFile("src/main/resources/IMPValues.csv", ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
+        obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile("src/main/resources/GameValuesBeforeMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile("src/main/resources/GameValuesAfterMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         try {
             obj.getHandValueAndStage();
             valueOfHand = obj.calculateValueOfHand();

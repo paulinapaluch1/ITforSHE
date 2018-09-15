@@ -5,8 +5,8 @@ import java.io.IOException;
 public class TableReader {
 
 
-    protected int[][] readTableFromFile(String path, int rows, int maxCol) {
-        int table[][] = new int[rows][maxCol];
+    protected int[][] readTableFromFile(String path, int maxRow, int maxCol) {
+        int table[][] = new int[maxRow][maxCol];
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             int row = 0;
