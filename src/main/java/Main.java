@@ -20,6 +20,11 @@ public class Main {
     private static final int COLS_IN_HAND_VALUE_TABLE = 3;
     private static final int ROWS_IN_GAMES_TABLES = 8;
     private static final int COLS_IN_GAMES_TABLES = 13;
+    private static final String HAND_VALUES_FILE_PATH="src/main/resources/HandValues.csv";
+    private static final String IMP_VALUES_FILE_PATH="src/main/resources/IMPValues.csv";
+    private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH="src/main/resources/GameValuesBeforeMatch.csv";
+    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH="src/main/resources/GameValuesAfterMatch.csv";
+
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
@@ -41,10 +46,10 @@ public class Main {
         int scoreIMP;
         Main obj = new Main();
         obj.reader = new TableReader();
-        obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile("src/main/resources/HandValues.csv", ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
-        obj.tableOfIMP = obj.reader.readTableFromFile("src/main/resources/IMPValues.csv", ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
-        obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile("src/main/resources/GameValuesBeforeMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
-        obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile("src/main/resources/GameValuesAfterMatch.csv", ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile(HAND_VALUES_FILE_PATH, ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
+        obj.tableOfIMP = obj.reader.readTableFromFile(IMP_VALUES_FILE_PATH, ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
+        obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile(GAME_VALUES_BEFORE_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile(GAME_VALUES_AFTER_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         try {
             obj.getHandValueAndStage();
             valueOfHand = obj.calculateValueOfHand();
