@@ -1,8 +1,14 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class Main  extends Application {
     private static final int MIN_HAND_VALUE = 21;
     private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
@@ -53,7 +59,18 @@ public class Main {
             {3000, 3490, 22}, {3500, 3990, 23}, {0, 4000, 24}};
 
 
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();
+    }
+
+
     public static void main(String[] args) {
+        launch(args);
         int valueOfHand;
         int matchScore;
         int scoreIMP;
@@ -71,6 +88,8 @@ public class Main {
                 | InvalidAmountOfTricksException | ImproperCharacterException e) {
             System.err.println(e.getMessage());
         }
+
+
 
     }
 
