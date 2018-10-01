@@ -1,7 +1,47 @@
-Teeest
+ITforSHE
 
 %{toc|section=1|fromDepth=2|toDepth=4}
 
-* Introduction
 
-   <<It for she>> to projekt który robiłam dla Wojtka
+
+*Wstep
+
+  <<IT for SHE>> to program Fundacji Edukacyjnej Perspektywy
+   majacy na celu pomoc studentkom kierunkow informatycznych w wejsciu na rynek pracy.
+   Jednym z jego elementow jest program mentoringowy,
+   w ramach ktorego powstal ten projekt "Wyliczanie punktacji sportowej na podstawie zapisu miltonowego".
+
+* Opis dzialania
+
+    Aplikacja umozliwia obliczenie punktow w brydzowej notacji sportowej na podstawie
+zapisu miltonowego. Program oblicza wynik korzystajac z tabelarycznych danych zawartych w 4 plikach
+oraz informacji podawanych kolejno przez uzytkownika. Uzytkownik jest pytany o wartosc reki
+i etap - czy jest przed czy po partii, po czym otrzymuje informacje ile punktow warta jest ta reka.
+Nastepnie podaje on ilosc wylicytowanych lew, kolor,ilosc wpadek i nadrobek, informacje czy byla kontra i rekontra.
+Na podstawie tych danych program odczytuje z odpowiedniej tabeli dane i oblicza ilosc punktow osiagnietych w danej partii
+oraz wynik w miedzynarodowej notacji sportowej. W przypadku, kiedy uzytkownik poda niepoprawna dana,
+program konczy dzialanie z informacja o przyczynie.
+
+* Skrocony opis dzialania
+
+  Aplikacja "Wyliczanie punktacji sportowej na postawie zapisu miltonowego"
+  zostala wykonana w celu zautomatyzowania procesu wyliczania miedzynarodowych punktow
+  meczowych w brydza. Uzytkownik podaje wyniki partii, a  program odczytuje z odpowiednich tabel wyniki i oblicza wynik koncowy, po czym przelicza otrzymane punkty na notacje miezynarodowa.
+
+* Zastosowane narzedzia
+
+    Maven, Git, Java, pliki w formacie .csv
+
+* Zdobyta wiedza
+
+    Podczas realizacji projektu nauczylam sie pracy zgodnie z frameworkiem Scrum, korzystania z Git-a i Githuba.
+Pocwiczylam umiejetnosci programowania obiektowego w jezyku Java i tworzenia algorytmow. Stworzylam i obslizylam swoje pierwsze wlasne wyjatki.
+Nauczylam sie tworzyc pliki do programu, odczytywac z nich dane, pisac testy automatyczne oraz tworzyc dokumentacje.
+Poznalam wiele dobrych praktych w tworzeniu oprogramowania.
+Zrobilam rowniez pierwszy raz interfejs graficzny w JavaFx.
+
+
+
+
+
+

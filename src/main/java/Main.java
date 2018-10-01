@@ -23,7 +23,7 @@ public class Main extends Application {
     private static final int COLS_IN_HAND_VALUE_TABLE = 3;
     private static final int ROWS_IN_GAMES_TABLES = 8;
     private static final int COLS_IN_GAMES_TABLES = 13;
-    private static final String HAND_VALUES_FILE_PATH = "src/main/resources/HandValues";
+    private static final String HAND_VALUES_FILE_PATH = "src/main/resources/HandValues.csv";
     private static final String IMP_VALUES_FILE_PATH = "src/main/resources/IMPValues.csv";
     private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH = "src/main/resources/GameValuesBeforeMatch.csv";
     private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
