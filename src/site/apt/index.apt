@@ -1,0 +1,46 @@
+ITforSHE
+
+%{toc|section=1|fromDepth=2|toDepth=4}
+
+
+
+*Wstęp
+
+  <<IT for SHE>> to program Fundacji Edukacyjnej Perspektywy
+   mający na celu pomoc studentkom kierunków informatycznych w wejściu na rynek pracy.
+   Jednym z jego elementow jest program mentoringowy,
+   w ramach którego powstal ten projekt "Wyliczanie punktacji sportowej na podstawie zapisu miltonowego".
+
+* Opis działania
+
+    Aplikacja umożliwia obliczenie punktów w brydżowej notacji sportowej na podstawie
+zapisu miltonowego. Program oblicza wynik korzystając z tabelarycznych danych zawartych w 4 plikach
+oraz informacji podawanych kolejno przez użytkownika. Użytkownik jest pytany o wartość ręki
+i etap - czy jest przed czy po partii, po czym otrzymuje informacje ile punktów warta jest ta reka.
+Następnie podaje on ilość wylicytowanych lew, kolor,ilość wpadek i nadróbek, informacje czy była kontra i rekontra.
+Na podstawie tych danych program odczytuje z odpowiedniej tabeli dane i oblicza ilość punktów osiągnietych w danej partii
+oraz wynik w międzynarodowej notacji sportowej. W przypadku, kiedy użytkownik poda niepoprawną daną,
+program kończy działanie z informacją o przyczynie.
+
+* Skrócony opis działania
+
+  Aplikacja "Wyliczanie punktacji sportowej na postawie zapisu miltonowego"
+  zostala wykonana w celu zautomatyzowania procesu wyliczania międzynarodowych punktów
+  meczowych w brydża. Użytkownik podaje wyniki partii, a program odczytuje z odpowiednich tabel wyniki i oblicza wynik końcowy, po czym przelicza otrzymane punkty na notacje międzynarodową.
+
+* Zastosowane narzędzia
+
+    Maven, Git, Java, pliki w formacie .csv
+
+* Zdobyta wiedza
+
+    Podczas realizacji projektu nauczyłam się pracy zgodnie z frameworkiem Scrum, korzystania z Git-a i Githuba.
+Poćwiczyłam umiejętności programowania obiektowego w języku Java i tworzenia algorytmów. Stworzyłam i obsłużyłam swoje pierwsze własne wyjątki.
+Nauczylam sie tworzyc pliki do programu, odczytywac z nich dane, pisac testy automatyczne oraz tworzyc dokumentacje.
+Poznałam wiele dobrych praktych w tworzeniu oprogramowania.
+Zrobilam rownież pierwszy raz interfejs graficzny w JavaFx.
+
+
+
+
+
