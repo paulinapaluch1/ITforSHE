@@ -3,7 +3,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,7 +26,10 @@ public class Main extends Application {
     private static final String IMP_VALUES_FILE_PATH = "src/main/resources/IMPValues.csv";
     private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH = "src/main/resources/GameValuesBeforeMatch.csv";
     private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
-
+    private static final String HAND_VALUES_FILE_PATH="src/main/resources/HandValues.csv";
+    private static final String IMP_VALUES_FILE_PATH="src/main/resources/IMPValues.csv";
+    private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH="src/main/resources/GameValuesBeforeMatch.csv";
+    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH="src/main/resources/GameValuesAfterMatch.csv";
     private int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
@@ -45,6 +47,7 @@ public class Main extends Application {
 
 
     @Override
+
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("src/main/resources/fxml/sample.fxml"));
         primaryStage.setTitle("Hello World");
@@ -54,6 +57,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
         //launch(args);
         int valueOfHand;
         int matchScore;
