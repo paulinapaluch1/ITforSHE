@@ -1,7 +1,7 @@
 ITforSHE
 
-%{toc|section=1|fromDepth=2|toDepth=4}
-
+%toc|section=1|fromDepth=2|toDepth=4}
+{
 
 
 *Wstęp
@@ -36,9 +36,9 @@ program kończy działanie z informacją o przyczynie.
 
     Podczas realizacji projektu nauczyłam się pracy zgodnie z frameworkiem Scrum, korzystania z Git-a i Githuba.
 Poćwiczyłam umiejętności programowania obiektowego w języku Java i tworzenia algorytmów. Stworzyłam i obsłużyłam swoje pierwsze własne wyjątki.
-Nauczylam sie tworzyc pliki do programu, odczytywac z nich dane, pisac testy automatyczne oraz tworzyc dokumentacje.
+Nauczyłam sie tworzyć pliki do programu, odczytywać z nich dane, pisać testy automatyczne oraz tworzyć dokumentację.
 Poznałam wiele dobrych praktych w tworzeniu oprogramowania.
-Zrobilam rownież pierwszy raz interfejs graficzny w JavaFx.
+Zrobiłam rownież pierwszy raz interfejs graficzny w JavaFx.
 
 
 

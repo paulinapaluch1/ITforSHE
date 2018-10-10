@@ -46,15 +46,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("src/main/resources/fxml/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
+        primaryStage.setTitle("Wyliczanie punktacji sportowej na podstawie zapisu miltonowego");
+        primaryStage.setScene(new Scene(root,670,444));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
         int valueOfHand;
         int matchScore;
         int scoreIMP;
