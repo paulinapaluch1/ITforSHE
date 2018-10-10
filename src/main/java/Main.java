@@ -48,7 +48,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Wyliczanie punktacji sportowej na podstawie zapisu miltonowego");
-        primaryStage.setScene(new Scene(root,670,444));
+        primaryStage.setScene(new Scene(root,790,523));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
