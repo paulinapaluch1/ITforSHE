@@ -9,11 +9,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="LoginAnchorPane" prefHeight="521.0" prefWidth="805.0" style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane id="LoginAnchorPane" prefHeight="521.0" prefWidth="807.0" style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <TextField fx:id="handValue" layoutX="36.0" layoutY="76.0" promptText="Wartość ręki" />
-      <TextArea fx:id="result" editable="false" layoutX="414.0" layoutY="28.0" prefHeight="233.0" prefWidth="359.0" />
-      <FlowPane layoutX="36.0" layoutY="254.0" prefHeight="48.0" prefWidth="297.0">
+      <TextField fx:id="handValue" layoutX="29.0" layoutY="353.0" promptText="Wartość ręki" />
+      <TextArea fx:id="result" editable="false" layoutX="224.0" layoutY="29.0" prefHeight="233.0" prefWidth="359.0" />
+      <FlowPane layoutX="299.0" layoutY="348.0" prefHeight="48.0" prefWidth="297.0">
          <children>
             <Button fx:id="pik" mnemonicParsing="false" text="Pik" />
             <Button fx:id="kier" mnemonicParsing="false" text="Kier" />
@@ -22,23 +22,23 @@
             <Button fx:id="BA" mnemonicParsing="false" text="BA" />
          </children>
       </FlowPane>
-      <TextField fx:id="bloopers" layoutX="36.0" layoutY="322.0" promptText="Ilość wpadek" />
-      <TextField fx:id="overtricks" layoutX="36.0" layoutY="387.0" promptText="Ilość nadróbek" />
-      <ComboBox fx:id="amountOfBidedTricks" layoutX="36.0" layoutY="195.0" promptText="Ilość wylicytowanych lew" visibleRowCount="7" />
-      <CheckBox fx:id="veto" layoutX="38.0" layoutY="456.0" mnemonicParsing="false" text="kontra" textFill="WHITE" />
-      <CheckBox fx:id="reveto" layoutX="148.0" layoutY="456.0" mnemonicParsing="false" text="rekontra" textFill="WHITE" />
-      <RadioButton fx:id="afterMatch" contentDisplay="RIGHT" layoutX="38.0" layoutY="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" text="po partii" textFill="WHITE">
+      <TextField fx:id="bloopers" layoutX="299.0" layoutY="417.0" promptText="Ilość wpadek" />
+      <TextField fx:id="overtricks" layoutX="299.0" layoutY="464.0" promptText="Ilość nadróbek" />
+      <ComboBox fx:id="amountOfBidedTricks" layoutX="299.0" layoutY="296.0" promptText="Ilość wylicytowanych lew" visibleRowCount="7" />
+      <CheckBox fx:id="veto" layoutX="598.0" layoutY="308.0" mnemonicParsing="false" text="kontra" textFill="WHITE" />
+      <CheckBox fx:id="reveto" layoutX="598.0" layoutY="359.0" mnemonicParsing="false" text="rekontra" textFill="WHITE" />
+      <RadioButton fx:id="afterMatch" contentDisplay="RIGHT" layoutX="29.0" layoutY="302.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" text="po partii" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="etap" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="beforeMatch" contentDisplay="TOP" layoutX="134.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="przed partią" textFill="WHITE" toggleGroup="$etap">
+      <RadioButton fx:id="beforeMatch" contentDisplay="TOP" layoutX="134.0" layoutY="302.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="przed partią" textFill="WHITE" toggleGroup="$etap">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </RadioButton>
-      <Button fx:id="valueOfHand" layoutX="414.0" layoutY="278.0" mnemonicParsing="false" onAction="#getHandValueAndStage" text="Ile punktów warta jest ta ręka?" />
-      <Button fx:id="matchResult" layoutX="414.0" layoutY="342.0" mnemonicParsing="false" onAction="#calculateMatchScore" text="Wynik końcowy " />
-      <Button fx:id="impResult" layoutX="414.0" layoutY="407.0" mnemonicParsing="false" onAction="#getResultInInternationalMatchPoints" text="IMP" />
+      <Button fx:id="valueOfHand" layoutX="29.0" layoutY="417.0" mnemonicParsing="false" onAction="#calculateValueOfHand" text="Ile punktów warta jest ta ręka?" />
+      <Button fx:id="matchResult" layoutX="596.0" layoutY="412.0" mnemonicParsing="false" onAction="#calculateMatchScore" text="Wynik końcowy " />
+      <Button fx:id="impResult" layoutX="596.0" layoutY="464.0" mnemonicParsing="false" onAction="#getResultInInternationalMatchPoints" text="IMP" />
    </children>
 </AnchorPane>

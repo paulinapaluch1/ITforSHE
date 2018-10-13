@@ -17,6 +17,9 @@ public class Controller {
     private Button karo;
 
     @FXML
+    private Button matchResult;
+
+    @FXML
     private ComboBox<?> amountOfBidedTricks;
 
     @FXML
@@ -41,6 +44,9 @@ public class Controller {
     private Button trefl;
 
     @FXML
+    private Button impResult;
+
+    @FXML
     private TextField handValue;
 
     @FXML
@@ -50,13 +56,17 @@ public class Controller {
     private CheckBox veto;
 
     @FXML
+    private Button valueOfHand;
+
+    @FXML
     private TextField overtricks;
 
     @FXML
     private Button BA;
 
     @FXML
-    void getHandValueAndStage(ActionEvent event) {
+    void calculateValueOfHand(ActionEvent event) {
+
 
 
     }
