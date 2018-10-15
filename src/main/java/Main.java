@@ -29,19 +29,19 @@ public class Main extends Application {
     private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
 
     static int handValue;
-    private static int amountOfBidedTricks;
-    private static int amountOfBloopers;
-    private static int amountOfOvertricks = 0;
-    private int margin;
+    static int amountOfBidedTricks;
+    static int amountOfBloopers;
+    static int amountOfOvertricks = 0;
+    int margin;
     static String stageOfTheMatch;
-    private static Suit suit;
-    private static char veto;
-    private static char reveto = 'n';
+    static Suit suit;
+    static char veto;
+    static char reveto = 'n';
     TableReader reader;
     static int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
-    private static int[][] tableOfGameValuesBeforeMatch;
-    private static int[][] tableOfGameValuesAfterMatch;
-    private int tableOfIMP[][];
+    static int[][] tableOfGameValuesBeforeMatch;
+    static int[][] tableOfGameValuesAfterMatch;
+    static int tableOfIMP[][];
 
 
     @Override
@@ -229,7 +229,6 @@ public class Main extends Application {
 
         return scoreIMP;
     }
-
 
 
 }

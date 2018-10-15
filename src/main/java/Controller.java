@@ -1,26 +1,26 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+
+import java.util.InputMismatchException;
 
 public class Controller {
+
+    ObservableList<String> tricks = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7");
 
     @FXML
     private RadioButton afterMatch;
 
     @FXML
-    private Button karo;
+    private ToggleButton karo;
 
     @FXML
     private Button matchResult;
 
     @FXML
-    private ComboBox<?> amountOfBidedTricks;
+    private ComboBox<String> amountOfBidedTricks;
 
     @FXML
     private TextField bloopers;
@@ -35,13 +35,13 @@ public class Controller {
     private RadioButton beforeMatch;
 
     @FXML
-    private Button pik;
+    private ToggleButton pik;
 
     @FXML
     private CheckBox reveto;
 
     @FXML
-    private Button trefl;
+    private ToggleButton trefl;
 
     @FXML
     private Button impResult;
@@ -50,19 +50,30 @@ public class Controller {
     private TextField handValue;
 
     @FXML
-    private Button kier;
+    private ToggleButton kier;
 
     @FXML
     private CheckBox veto;
 
     @FXML
-    private Button valueOfHand;
+    private Button getValueOfHand;
 
     @FXML
     private TextField overtricks;
 
     @FXML
-    private Button BA;
+    private ToggleButton BA;
+
+
+    int valueOfHand;
+    int matchScore;
+
+    @FXML
+    private void initialize() {
+        amountOfBidedTricks.setItems(tricks);
+
+    }
+
 
     @FXML
     void calculateValueOfHand(ActionEvent event) {
@@ -74,8 +85,9 @@ public class Controller {
             if (Integer.parseInt(handValue.getText()) >= Main.MIN_HAND_VALUE)
                 Main.handValue = Integer.parseInt(handValue.getText());
             else throw new IncorrectHandValueException();
+            valueOfHand = Main.calculateValueOfHand();
 
-            result.setText("Ta reka jest warta: " + Main.calculateValueOfHand());
+            result.setText("Ta reka jest warta: " + valueOfHand);
 
         } catch (WrongStageOfTheMatchException | IncorrectHandValueException e) {
             result.setText(e.getMessage());
@@ -84,7 +96,34 @@ public class Controller {
 
     @FXML
     void calculateMatchScore(ActionEvent event) {
+        try {
+            Main.amountOfBidedTricks = Integer.parseInt(amountOfBidedTricks.getValue());
 
+            if (pik.isSelected()) Main.suit = Suit.PIK;
+            else if (kier.isSelected()) Main.suit = Suit.KIER;
+            else if (karo.isSelected()) Main.suit = Suit.KARO;
+            else if (trefl.isSelected()) Main.suit = Suit.TREFL;
+            else if (BA.isSelected()) Main.suit = Suit.BA;
+            else throw new WrongSuitException();
+
+
+            Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
+            Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
+
+            if (veto.isSelected())
+                Main.veto = 't';
+            else Main.veto = 'n';
+
+            if (reveto.isSelected())
+                Main.reveto = 't';
+            else Main.reveto = 'n';
+            calculateValueOfHand(event);
+
+        } catch (WrongSuitException e) {
+            result.setText(e.getMessage());
+        }
+        matchScore = Main.calculateMatchScore();
+        result.setText("Ilosc zdobytych punktow: " + matchScore);
 
     }
 
