@@ -62,24 +62,6 @@ public class Main extends Application {
         obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile(GAME_VALUES_BEFORE_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile(GAME_VALUES_AFTER_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         launch(args);
-        int valueOfHand;
-        int matchScore;
-        int scoreIMP;
-
-        try {
-            obj.getHandValueAndStage();
-            valueOfHand = obj.calculateValueOfHand();
-            System.out.println("Ta reka warta jest: " + valueOfHand);
-            obj.getMatchResults();
-            matchScore = obj.calculateMatchScore();
-            System.out.println("Ilosc zdobytych punktow: " + matchScore);
-            scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
-            System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
-        } catch (IncorrectHandValueException | WrongStageOfTheMatchException | WrongSuitException
-                | InvalidAmountOfTricksException | ImproperCharacterException e) {
-            System.err.println(e.getMessage());
-        }
-
     }
 
     private void getHandValueAndStage() {
