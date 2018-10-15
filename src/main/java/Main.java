@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main extends Application {
-    private static final int MIN_HAND_VALUE = 21;
+    static final int MIN_HAND_VALUE = 21;
     private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
@@ -29,18 +29,18 @@ public class Main extends Application {
     private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
 
     static int handValue;
-    private int amountOfBidedTricks;
-    private int amountOfBloopers;
-    private int amountOfOvertricks = 0;
+    private static int amountOfBidedTricks;
+    private static int amountOfBloopers;
+    private static int amountOfOvertricks = 0;
     private int margin;
     static String stageOfTheMatch;
-    private Suit suit;
-    private char veto;
-    private char reveto = 'n';
+    private static Suit suit;
+    private static char veto;
+    private static char reveto = 'n';
     TableReader reader;
     static int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
-    private int tableOfGameValuesBeforeMatch[][];
-    private int tableOfGameValuesAfterMatch[][];
+    private static int[][] tableOfGameValuesBeforeMatch;
+    private static int[][] tableOfGameValuesAfterMatch;
     private int tableOfIMP[][];
 
 
@@ -116,7 +116,7 @@ public class Main extends Application {
     }
 
 
-    private void getMatchResults() {
+    void getMatchResults() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
@@ -172,7 +172,7 @@ public class Main extends Application {
 
     }
 
-    private int calculateMatchScore() {
+    static int calculateMatchScore() {
         int startingCol;
         int offset = 0;
         int row = amountOfBidedTricks - 1;
@@ -199,7 +199,6 @@ public class Main extends Application {
             sum -= amountOfBloopers * supplementaryTable[row][offset + 1];
         else if (amountOfOvertricks > 0)
             sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
-
 
         return sum;
     }

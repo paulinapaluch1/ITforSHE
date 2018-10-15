@@ -66,11 +66,20 @@ public class Controller {
 
     @FXML
     void calculateValueOfHand(ActionEvent event) {
-        if (beforeMatch.isSelected()) Main.stageOfTheMatch = "przed";
-        else if (afterMatch.isSelected()) Main.stageOfTheMatch = "po";
-        else throw new WrongStageOfTheMatchException();
-        Main.handValue = Integer.parseInt(handValue.getText());
-        result.setText("Ta reka jest warta: " + Main.calculateValueOfHand());
+        try {
+            if (beforeMatch.isSelected()) Main.stageOfTheMatch = "przed";
+            else if (afterMatch.isSelected()) Main.stageOfTheMatch = "po";
+            else throw new WrongStageOfTheMatchException();
+
+            if (Integer.parseInt(handValue.getText()) >= Main.MIN_HAND_VALUE)
+                Main.handValue = Integer.parseInt(handValue.getText());
+            else throw new IncorrectHandValueException();
+
+            result.setText("Ta reka jest warta: " + Main.calculateValueOfHand());
+
+        } catch (WrongStageOfTheMatchException | IncorrectHandValueException e) {
+            result.setText(e.getMessage());
+        }
     }
 
     @FXML
