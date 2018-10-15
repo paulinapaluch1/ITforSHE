@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="LoginAnchorPane" prefHeight="521.0" prefWidth="807.0" style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane id="LoginAnchorPane" pickOnBounds="false" prefHeight="521.0" prefWidth="807.0" style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <TextField fx:id="handValue" layoutX="29.0" layoutY="353.0" promptText="Wartość ręki" />
       <TextArea fx:id="result" editable="false" layoutX="224.0" layoutY="29.0" prefHeight="233.0" prefWidth="359.0" />

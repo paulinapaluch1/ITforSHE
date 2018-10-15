@@ -28,17 +28,17 @@ public class Main extends Application {
     private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH = "src/main/resources/GameValuesBeforeMatch.csv";
     private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
 
-    private int handValue;
+    static int handValue;
     private int amountOfBidedTricks;
     private int amountOfBloopers;
     private int amountOfOvertricks = 0;
     private int margin;
-    private String stageOfTheMatch;
+    static String stageOfTheMatch;
     private Suit suit;
     private char veto;
     private char reveto = 'n';
     TableReader reader;
-    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
+    static int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
     private int tableOfGameValuesBeforeMatch[][];
     private int tableOfGameValuesAfterMatch[][];
     private int tableOfIMP[][];
@@ -48,23 +48,24 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Wyliczanie punktacji sportowej na podstawie zapisu miltonowego");
-        primaryStage.setScene(new Scene(root,790,523));
+        primaryStage.setScene(new Scene(root, 790, 523));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        launch(args);
-        int valueOfHand;
-        int matchScore;
-        int scoreIMP;
         Main obj = new Main();
         obj.reader = new TableReader();
         obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile(HAND_VALUES_FILE_PATH, ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
         obj.tableOfIMP = obj.reader.readTableFromFile(IMP_VALUES_FILE_PATH, ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
         obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile(GAME_VALUES_BEFORE_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile(GAME_VALUES_AFTER_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
+        launch(args);
+        int valueOfHand;
+        int matchScore;
+        int scoreIMP;
+
         try {
             obj.getHandValueAndStage();
             valueOfHand = obj.calculateValueOfHand();
@@ -100,7 +101,7 @@ public class Main extends Application {
     }
 
 
-    private int calculateValueOfHand() {
+    public static int calculateValueOfHand() {
 
         int j;
         if (stageOfTheMatch.toLowerCase().equals("przed"))
@@ -229,6 +230,7 @@ public class Main extends Application {
 
         return scoreIMP;
     }
+
 
 
 }
