@@ -32,7 +32,7 @@ public class Main extends Application {
     static int amountOfBidedTricks;
     static int amountOfBloopers;
     static int amountOfOvertricks = 0;
-    int margin;
+    static int margin;
     static String stageOfTheMatch;
     static Suit suit;
     static char veto;
@@ -203,7 +203,7 @@ public class Main extends Application {
         return sum;
     }
 
-    private int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
+    static int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
         margin = matchScore - valueOfHand;
         List<RangeOfIMP> listOfRanges = new ArrayList<>();
         int scoreIMP = 0;

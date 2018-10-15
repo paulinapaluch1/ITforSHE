@@ -71,6 +71,8 @@ public class Controller {
     @FXML
     private void initialize() {
         amountOfBidedTricks.setItems(tricks);
+        valueOfHand = 0;
+        matchScore = 0;
 
     }
 
@@ -129,7 +131,8 @@ public class Controller {
 
     @FXML
     void getResultInInternationalMatchPoints(ActionEvent event) {
-
+        result.setText("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " +
+                Main.getResultInInternationalMatchPoints(matchScore, valueOfHand));
     }
 
 }
