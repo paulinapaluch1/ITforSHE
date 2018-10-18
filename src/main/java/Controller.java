@@ -3,6 +3,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -31,9 +32,6 @@ public class Controller {
 
     @FXML
     private TextArea result;
-
-    @FXML
-    private ToggleGroup etap;
 
     @FXML
     private RadioButton beforeMatch;
@@ -71,13 +69,31 @@ public class Controller {
     int valueOfHand;
     int matchScore;
 
+
     @FXML
     private void initialize() {
         amountOfBidedTricks.setItems(tricks);
         valueOfHand = 0;
         matchScore = 0;
         reveto.setDisable(true);
+        settingButtonsSelectedProperty(pik, kier, karo, trefl, BA);
+        settingButtonsSelectedProperty(kier, pik, karo, trefl, BA);
+        settingButtonsSelectedProperty(karo, pik, kier, trefl, BA);
+        settingButtonsSelectedProperty(trefl, kier, karo, pik, BA);
+        settingButtonsSelectedProperty(BA, kier, karo, trefl, pik);
 
+    }
+
+    private void settingButtonsSelectedProperty(ToggleButton source, ToggleButton button1, ToggleButton button2, ToggleButton button3, ToggleButton button4) {
+        source.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                button1.setSelected(false);
+                button2.setSelected(false);
+                button3.setSelected(false);
+                button4.setSelected(false);
+            }
+        });
     }
 
     @FXML
@@ -112,7 +128,6 @@ public class Controller {
             else if (trefl.isSelected()) Main.suit = Suit.TREFL;
             else if (BA.isSelected()) Main.suit = Suit.BA;
             else throw new WrongSuitException();
-
 
 
             Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
