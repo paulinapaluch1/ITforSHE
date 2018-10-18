@@ -130,8 +130,13 @@ public class Controller {
             else throw new WrongSuitException();
 
 
-            Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
-            Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
+            if (bloopers.getText() == "" && overtricks.getText() == "") {
+                Main.amountOfBloopers = 0;
+                Main.amountOfOvertricks = 0;
+            } else {
+                Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
+                Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
+            }
 
 
             if (veto.isSelected())
