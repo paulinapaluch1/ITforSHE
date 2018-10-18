@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -7,49 +8,49 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane id="LoginAnchorPane" pickOnBounds="false" prefHeight="521.0" prefWidth="807.0"
-            style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane id="LoginAnchorPane" pickOnBounds="false" prefHeight="521.0" prefWidth="807.0" style="-fx-background-image: url('background3.JPG');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <TextField fx:id="handValue" layoutX="29.0" layoutY="353.0" promptText="Wartość ręki"/>
-        <TextArea fx:id="result" editable="false" layoutX="224.0" layoutY="29.0" prefHeight="233.0" prefWidth="359.0"/>
+        <TextField fx:id="handValue" layoutX="29.0" layoutY="353.0" promptText="Wartość ręki" />
+        <TextArea fx:id="result" editable="false" layoutX="224.0" layoutY="29.0" prefHeight="233.0" prefWidth="359.0" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
         <FlowPane layoutX="299.0" layoutY="348.0" prefHeight="55.0" prefWidth="297.0">
             <children>
-                <ToggleButton fx:id="pik" mnemonicParsing="false" text="Pik"/>
-                <ToggleButton fx:id="kier" mnemonicParsing="false" text="Kier"/>
-                <ToggleButton fx:id="karo" mnemonicParsing="false" text="Karo"/>
-                <ToggleButton fx:id="trefl" mnemonicParsing="false" text="Trefl"/>
-                <ToggleButton fx:id="BA" mnemonicParsing="false" text="BA"/>
+                <ToggleButton fx:id="pik" mnemonicParsing="false" text="Pik" />
+                <ToggleButton fx:id="kier" mnemonicParsing="false" text="Kier" />
+                <ToggleButton fx:id="karo" mnemonicParsing="false" text="Karo" />
+                <ToggleButton fx:id="trefl" mnemonicParsing="false" text="Trefl" />
+                <ToggleButton fx:id="BA" mnemonicParsing="false" text="BA" />
             </children>
         </FlowPane>
-        <TextField fx:id="bloopers" layoutX="299.0" layoutY="417.0" promptText="Ilość wpadek"/>
-        <TextField fx:id="overtricks" layoutX="299.0" layoutY="464.0" promptText="Ilość nadróbek"/>
-        <ComboBox fx:id="amountOfBidedTricks" layoutX="299.0" layoutY="296.0" promptText="Ilość wylicytowanych lew"
-                  visibleRowCount="7">
+        <TextField fx:id="bloopers" layoutX="307.0" layoutY="437.0" promptText="Ilość wpadek" visible="false" />
+        <TextField fx:id="overtricks" layoutX="307.0" layoutY="437.0" promptText="Ilość nadróbek" visible="false" />
+        <ComboBox fx:id="amountOfBidedTricks" layoutX="299.0" layoutY="296.0" promptText="Ilość wylicytowanych lew" visibleRowCount="7">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </ComboBox>
-        <CheckBox fx:id="veto" layoutX="598.0" layoutY="308.0" mnemonicParsing="false" text="kontra" textFill="WHITE"/>
-        <CheckBox fx:id="reveto" layoutX="598.0" layoutY="359.0" mnemonicParsing="false" text="rekontra"
-                  textFill="WHITE"/>
-        <RadioButton fx:id="afterMatch" contentDisplay="RIGHT" layoutX="29.0" layoutY="302.0" mnemonicParsing="false"
-                     text="po partii" textFill="WHITE">
+        <CheckBox fx:id="veto" layoutX="598.0" layoutY="308.0" mnemonicParsing="false" onAction="#changeDisabilityOfReveto" text="kontra" textFill="WHITE" />
+        <CheckBox fx:id="reveto" layoutX="598.0" layoutY="359.0" mnemonicParsing="false" text="rekontra" textFill="WHITE" />
+        <RadioButton fx:id="afterMatch" contentDisplay="RIGHT" layoutX="29.0" layoutY="302.0" mnemonicParsing="false" text="po partii" textFill="WHITE">
             <toggleGroup>
-                <ToggleGroup fx:id="etap"/>
+                <ToggleGroup fx:id="etap" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="beforeMatch" contentDisplay="TOP" layoutX="134.0" layoutY="302.0" mnemonicParsing="false"
-                     nodeOrientation="LEFT_TO_RIGHT" text="przed partią" textFill="WHITE" toggleGroup="$etap">
+        <RadioButton fx:id="beforeMatch" contentDisplay="TOP" layoutX="134.0" layoutY="302.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="przed partią" textFill="WHITE" toggleGroup="$etap">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </RadioButton>
-        <Button fx:id="getValueOfHand" layoutX="29.0" layoutY="417.0" mnemonicParsing="false"
-                onAction="#calculateValueOfHand" text="Ile punktów warta jest ta ręka?"/>
-        <Button fx:id="matchResult" layoutX="596.0" layoutY="412.0" mnemonicParsing="false"
-                onAction="#calculateMatchScore" text="Wynik końcowy "/>
-        <Button fx:id="impResult" layoutX="596.0" layoutY="464.0" mnemonicParsing="false"
-                onAction="#getResultInInternationalMatchPoints" text="IMP"/>
+        <Button fx:id="getValueOfHand" layoutX="29.0" layoutY="417.0" mnemonicParsing="false" onAction="#calculateValueOfHand" text="Ile punktów warta jest ta ręka?" />
+        <Button fx:id="matchResult" layoutX="596.0" layoutY="412.0" mnemonicParsing="false" onAction="#calculateMatchScore" text="Wynik końcowy " />
+        <Button fx:id="impResult" layoutX="596.0" layoutY="464.0" mnemonicParsing="false" onAction="#getResultInInternationalMatchPoints" text="IMP" />
+      <RadioButton layoutX="307.0" layoutY="404.0" mnemonicParsing="false" onAction="#showBloopers" text="wpadki" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="grupa" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="396.0" layoutY="404.0" mnemonicParsing="false" onAction="#showOvertricks" text="nadróbki" textFill="WHITE" toggleGroup="$grupa" />
     </children>
 </AnchorPane>
