@@ -66,6 +66,8 @@ public class Controller {
     @FXML
     private ToggleButton BA;
 
+    private static final int INITIAL_RESULT_VALUE = -1;
+
     int valueOfHand;
     int matchScore;
 
@@ -73,8 +75,8 @@ public class Controller {
     @FXML
     private void initialize() {
         amountOfBidedTricks.setItems(tricks);
-        valueOfHand = 0;
-        matchScore = 0;
+        valueOfHand = INITIAL_RESULT_VALUE;
+        matchScore = INITIAL_RESULT_VALUE;
         reveto.setDisable(true);
         settingButtonsSelectedProperty(pik, kier, karo, trefl, BA);
         settingButtonsSelectedProperty(kier, pik, karo, trefl, BA);
@@ -164,8 +166,12 @@ public class Controller {
 
     @FXML
     void getResultInInternationalMatchPoints(ActionEvent event) {
-        result.setText("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " +
-                Main.getResultInInternationalMatchPoints(matchScore, valueOfHand));
+
+        if (matchScore == INITIAL_RESULT_VALUE || valueOfHand == INITIAL_RESULT_VALUE)
+            result.setText("Najpierw oblicz wartosc reki i wynik koncowy!");
+        else
+            result.setText("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " +
+                    Main.getResultInInternationalMatchPoints(matchScore, valueOfHand));
     }
 
     @FXML
