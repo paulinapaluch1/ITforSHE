@@ -114,6 +114,7 @@ public class Controller {
             else throw new WrongSuitException();
 
 
+
             Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
             Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
 
@@ -159,14 +160,14 @@ public class Controller {
     @FXML
     void showBloopers(ActionEvent event) {
         bloopers.setVisible(true);
-        overtricks.setText("0");
+        overtricks.setText("");
         overtricks.setVisible(false);
     }
 
     @FXML
     void showOvertricks(ActionEvent event) {
         overtricks.setVisible(true);
-        bloopers.setText("0");
+        bloopers.setText("");
         bloopers.setVisible(false);
     }
 
