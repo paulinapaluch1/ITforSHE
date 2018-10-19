@@ -25,7 +25,7 @@ public class Main extends Application {
     private static final String HAND_VALUES_FILE_PATH = "src/main/resources/HandValues.csv";
     private static final String IMP_VALUES_FILE_PATH = "src/main/resources/IMPValues.csv";
     private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH = "src/main/resources/GameValuesBeforeMatch.csv";
-    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv"
+    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
 
     static int handValue;
     static int amountOfBidedTricks;
