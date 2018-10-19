@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main extends Application {
-    private static final int MIN_HAND_VALUE = 21;
+    static final int MIN_HAND_VALUE = 21;
     private static final int MAX_HAND_SIZE = 36;
     private static final int MIN_AMOUNT_OF_TRICKS = 1;
     private static final int MAX_AMOUNT_OF_TRICKS = 7;
@@ -25,25 +25,22 @@ public class Main extends Application {
     private static final String HAND_VALUES_FILE_PATH = "src/main/resources/HandValues.csv";
     private static final String IMP_VALUES_FILE_PATH = "src/main/resources/IMPValues.csv";
     private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH = "src/main/resources/GameValuesBeforeMatch.csv";
-    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv";
-    private static final String HAND_VALUES_FILE_PATH="src/main/resources/HandValues.csv";
-    private static final String IMP_VALUES_FILE_PATH="src/main/resources/IMPValues.csv";
-    private static final String GAME_VALUES_BEFORE_MATH_FILE_PATH="src/main/resources/GameValuesBeforeMatch.csv";
-    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH="src/main/resources/GameValuesAfterMatch.csv";
-    private int handValue;
-    private int amountOfBidedTricks;
-    private int amountOfBloopers;
-    private int amountOfOvertricks = 0;
-    private int margin;
-    private String stageOfTheMatch;
-    private Suit suit;
-    private char veto;
-    private char reveto = 'n';
+    private static final String GAME_VALUES_AFTER_MATH_FILE_PATH = "src/main/resources/GameValuesAfterMatch.csv"
+
+    static int handValue;
+    static int amountOfBidedTricks;
+    static int amountOfBloopers;
+    static int amountOfOvertricks = 0;
+    static int margin;
+    static String stageOfTheMatch;
+    static Suit suit;
+    static char veto;
+    static char reveto = 'n';
     TableReader reader;
-    private int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
-    private int tableOfGameValuesBeforeMatch[][];
-    private int tableOfGameValuesAfterMatch[][];
-    private int tableOfIMP[][];
+    static int tableOFPossibleHandValuesBeforeAndAfterMatch[][];
+    static int[][] tableOfGameValuesBeforeMatch;
+    static int[][] tableOfGameValuesAfterMatch;
+    static int tableOfIMP[][];
 
 
     @Override
@@ -51,37 +48,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/sample.fxml"));
         primaryStage.setTitle("Wyliczanie punktacji sportowej na podstawie zapisu miltonowego");
-        primaryStage.setScene(new Scene(root,790,523));
+        primaryStage.setScene(new Scene(root, 790, 523));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        launch(args);
-        int valueOfHand;
-        int matchScore;
-        int scoreIMP;
         Main obj = new Main();
         obj.reader = new TableReader();
         obj.tableOFPossibleHandValuesBeforeAndAfterMatch = obj.reader.readTableFromFile(HAND_VALUES_FILE_PATH, ROWS_IN_HAND_VALUES_TABLE, COLS_IN_HAND_VALUE_TABLE);
         obj.tableOfIMP = obj.reader.readTableFromFile(IMP_VALUES_FILE_PATH, ROWS_IN_IMP_TABLE, COLS_IN_INP_TABLE);
         obj.tableOfGameValuesBeforeMatch = obj.reader.readTableFromFile(GAME_VALUES_BEFORE_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
         obj.tableOfGameValuesAfterMatch = obj.reader.readTableFromFile(GAME_VALUES_AFTER_MATH_FILE_PATH, ROWS_IN_GAMES_TABLES, COLS_IN_GAMES_TABLES);
-        try {
-            obj.getHandValueAndStage();
-            valueOfHand = obj.calculateValueOfHand();
-            System.out.println("Ta reka warta jest: " + valueOfHand);
-            obj.getMatchResults();
-            matchScore = obj.calculateMatchScore();
-            System.out.println("Ilosc zdobytych punktow: " + matchScore);
-            scoreIMP = obj.getResultInInternationalMatchPoints(matchScore, valueOfHand);
-            System.out.println("Ilosc zdobytych punktow w miedzynarodowej notacji sportowej: " + scoreIMP);
-        } catch (IncorrectHandValueException | WrongStageOfTheMatchException | WrongSuitException
-                | InvalidAmountOfTricksException | ImproperCharacterException e) {
-            System.err.println(e.getMessage());
-        }
-
+        launch(args);
     }
 
     private void getHandValueAndStage() {
@@ -103,7 +83,7 @@ public class Main extends Application {
     }
 
 
-    private int calculateValueOfHand() {
+    public static int calculateValueOfHand() {
 
         int j;
         if (stageOfTheMatch.toLowerCase().equals("przed"))
@@ -118,7 +98,7 @@ public class Main extends Application {
     }
 
 
-    private void getMatchResults() {
+    void getMatchResults() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ilosc wylicytowanych lew: ");
@@ -174,7 +154,7 @@ public class Main extends Application {
 
     }
 
-    private int calculateMatchScore() {
+    static int calculateMatchScore() {
         int startingCol;
         int offset = 0;
         int row = amountOfBidedTricks - 1;
@@ -202,11 +182,10 @@ public class Main extends Application {
         else if (amountOfOvertricks > 0)
             sum += amountOfOvertricks * supplementaryTable[MAX_AMOUNT_OF_TRICKS][startingCol + offset];
 
-
         return sum;
     }
 
-    private int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
+    static int getResultInInternationalMatchPoints(int matchScore, int valueOfHand) {
         margin = matchScore - valueOfHand;
         List<RangeOfIMP> listOfRanges = new ArrayList<>();
         int scoreIMP = 0;
