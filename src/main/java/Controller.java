@@ -9,11 +9,11 @@ import javafx.scene.control.*;
 
 public class Controller {
 
-    ObservableList<String> tricks = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7");
+    ObservableList<String> tricks;
 
 
     @FXML
-    private RadioButton afterMatch;
+    protected RadioButton afterMatch;
 
     @FXML
     private ToggleButton karo;
@@ -34,7 +34,7 @@ public class Controller {
     private TextArea result;
 
     @FXML
-    private RadioButton beforeMatch;
+    protected RadioButton beforeMatch;
 
     @FXML
     private ToggleButton pik;
@@ -49,7 +49,7 @@ public class Controller {
     private Button impResult;
 
     @FXML
-    private TextField handValue;
+    protected TextField handValue;
 
     @FXML
     private ToggleButton kier;
@@ -74,6 +74,7 @@ public class Controller {
 
     @FXML
     private void initialize() {
+        tricks = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7");
         amountOfBidedTricks.setItems(tricks);
         valueOfHand = INITIAL_RESULT_VALUE;
         matchScore = INITIAL_RESULT_VALUE;
