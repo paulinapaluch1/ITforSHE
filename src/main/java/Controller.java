@@ -1,5 +1,3 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +11,7 @@ public class Controller {
 
 
     @FXML
-    protected RadioButton afterMatch;
+    private RadioButton afterMatch;
 
     @FXML
     private ToggleButton karo;
@@ -34,7 +32,7 @@ public class Controller {
     private TextArea result;
 
     @FXML
-    protected RadioButton beforeMatch;
+    private RadioButton beforeMatch;
 
     @FXML
     private ToggleButton pik;
@@ -133,13 +131,15 @@ public class Controller {
             else throw new WrongSuitException();
 
 
-            if (bloopers.getText() == "" && overtricks.getText() == "") {
+            if (bloopers.getText() == "")
                 Main.amountOfBloopers = 0;
-                Main.amountOfOvertricks = 0;
-            } else {
+            else
                 Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
-                Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
-            }
+
+            if (overtricks.getText() == "")
+                Main.amountOfOvertricks = 0;
+            else
+                Main.amountOfOvertricks = Integer.parseInt(overtricks.getText());
 
 
             if (veto.isSelected())
@@ -149,6 +149,7 @@ public class Controller {
             if (reveto.isSelected())
                 Main.reveto = 't';
             else Main.reveto = 'n';
+
             calculateValueOfHand(event);
 
         } catch (
