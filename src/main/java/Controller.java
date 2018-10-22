@@ -130,13 +130,12 @@ public class Controller {
             else if (BA.isSelected()) Main.suit = Suit.BA;
             else throw new WrongSuitException();
 
-
-            if (bloopers.getText() == "")
+            if (bloopers.getText() == null || bloopers.getText() == "")
                 Main.amountOfBloopers = 0;
             else
                 Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
 
-            if (overtricks.getText() == "")
+            if (overtricks.getText() == null || overtricks.getText() == "")
                 Main.amountOfOvertricks = 0;
             else
                 Main.amountOfOvertricks = Integer.parseInt(overtricks.getText());
