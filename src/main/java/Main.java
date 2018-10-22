@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -64,7 +65,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    private void getHandValueAndStage() {
+    static void getHandValueAndStage() {
 
         System.out.println("Wartosc punktowa reki: ");
         Scanner input = new Scanner(System.in);
