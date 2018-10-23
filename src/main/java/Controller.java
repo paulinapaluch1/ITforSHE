@@ -1,5 +1,3 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +7,7 @@ import javafx.scene.control.*;
 
 public class Controller {
 
-    ObservableList<String> tricks = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7");
+    ObservableList<String> tricks;
 
 
     @FXML
@@ -49,7 +47,7 @@ public class Controller {
     private Button impResult;
 
     @FXML
-    private TextField handValue;
+    protected TextField handValue;
 
     @FXML
     private ToggleButton kier;
@@ -74,6 +72,7 @@ public class Controller {
 
     @FXML
     private void initialize() {
+        tricks = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7");
         amountOfBidedTricks.setItems(tricks);
         valueOfHand = INITIAL_RESULT_VALUE;
         matchScore = INITIAL_RESULT_VALUE;
@@ -131,14 +130,15 @@ public class Controller {
             else if (BA.isSelected()) Main.suit = Suit.BA;
             else throw new WrongSuitException();
 
-
-            if (bloopers.getText() == "" && overtricks.getText() == "") {
+            if (bloopers.getText() == null || bloopers.getText() == "")
                 Main.amountOfBloopers = 0;
-                Main.amountOfOvertricks = 0;
-            } else {
+            else
                 Main.amountOfBloopers = Integer.parseInt(bloopers.getText());
-                Main.amountOfOvertricks = Integer.parseInt(bloopers.getText());
-            }
+
+            if (overtricks.getText() == null || overtricks.getText() == "")
+                Main.amountOfOvertricks = 0;
+            else
+                Main.amountOfOvertricks = Integer.parseInt(overtricks.getText());
 
 
             if (veto.isSelected())
@@ -148,6 +148,7 @@ public class Controller {
             if (reveto.isSelected())
                 Main.reveto = 't';
             else Main.reveto = 'n';
+
             calculateValueOfHand(event);
 
         } catch (
